@@ -58,3 +58,6 @@ def predict():
     plt.close()
 
     return jsonify({"prediction": prediction, "image": img_base64})
+
+if __name__ == "__main__":
+    app.run()
