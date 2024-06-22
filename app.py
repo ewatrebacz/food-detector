@@ -22,7 +22,7 @@ food_list = ['ice_cream', 'samosa', 'tuna_tartare', 'seaweed_salad', 'shrimp_and
 food_list = sorted(food_list)
 
 K.clear_session()
-model_best = load_model('/home/etrebacz/mysite/model.keras', compile=False)
+model_best = load_model('model.keras', compile=False)
 
 def predict_class(model, img):
     img = image.img_to_array(img)
@@ -46,18 +46,18 @@ def predict():
     img = img.resize((299, 299))
 
     prediction = predict_class(model_best, img)
+    print(prediction)
+    #plt.imshow(img)
+    #plt.axis('off')
+    #plt.title(prediction)
 
-    plt.imshow(img)
-    plt.axis('off')
-    plt.title(prediction)
+    #buf = io.BytesIO()
+    #plt.savefig(buf, format='png')
+    #buf.seek(0)
+    #img_base64 = base64.b64encode(buf.getvalue()).decode('utf-8')
+    #plt.close()
 
-    buf = io.BytesIO()
-    plt.savefig(buf, format='png')
-    buf.seek(0)
-    img_base64 = base64.b64encode(buf.getvalue()).decode('utf-8')
-    plt.close()
-
-    return jsonify({"prediction": prediction, "image": img_base64})
+    return jsonify({"prediction": prediction})
 
 if __name__ == "__main__":
     app.run()
